@@ -1,5 +1,5 @@
 {
-  "name": "generate-audio-app",
+  "name": "voice-generator-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {

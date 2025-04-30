@@ -67,13 +67,13 @@ export const ButtonRow = styled('div')({
   width: '100%',
 });
 
-export const AudioButton = styled('a')({
+export const VoiceButton = styled('a')({
   flex: 1,
   display: 'flex',
   textDecoration: 'none',
 });
 
-export const AudioSection = styled(Box)({
+export const VoiceSection = styled(Box)({
   marginTop: '30px',
   padding: '20px',
   background: '#f0f4fa',
@@ -84,7 +84,7 @@ export const AudioSection = styled(Box)({
   alignItems: 'center',
 });
 
-export const AudioTitle = styled(Typography)({
+export const VoiceTitle = styled(Typography)({
   fontWeight: 500,
   fontSize: '1.1rem',
   marginBottom: '10px',

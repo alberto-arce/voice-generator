@@ -33,24 +33,24 @@ export async function POST(request: Request) {
     );
     if (!response.ok) {
       return NextResponse.json(
-        { error: 'Failed to generate audio' },
+        { error: 'Failed to generate voice' },
         { status: 500 },
       );
     }
 
-    const audioArrayBuffer = await response.arrayBuffer();
-    const audioBuffer = Buffer.from(audioArrayBuffer);
-    const filePath = path.join(process.cwd(), 'public', 'audios', 'audio.mp3');
+    const voiceArrayBuffer = await response.arrayBuffer();
+    const voiceBuffer = Buffer.from(voiceArrayBuffer);
+    const filePath = path.join(process.cwd(), 'public', 'voices', 'voice.mp3');
     const dir = path.dirname(filePath);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
 
-    fs.writeFileSync(filePath, audioBuffer);
-    const audioUrl = `/audios/audio.mp3`;
-    return NextResponse.json({ audioUrl });
+    fs.writeFileSync(filePath, voiceBuffer);
+    const voiceUrl = `/voices/voice.mp3`;
+    return NextResponse.json({ voiceUrl });
   } catch (error) {
-    console.error('Error generating audio:', error);
+    console.error('Error generating voice:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 },

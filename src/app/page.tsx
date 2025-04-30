@@ -22,15 +22,15 @@ import {
   SubTitle,
   StyledTextField,
   ButtonRow,
-  AudioSection,
-  AudioTitle,
-  AudioButton
+  VoiceSection,
+  VoiceTitle,
+  VoiceButton
 } from './page.styles';
 import { IVoice, ISubscription } from './definitions';
 
 export default function Home() {
   const [text, setText] = useState<string>('');
-  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [voiceUrl, setVoiceUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedVoice, setSelectedVoice] = useState<string>('');
   const [voices, setVoices] = useState<IVoice[]>([]);
@@ -83,7 +83,7 @@ export default function Home() {
     setSelectedVoice(event.target.value);
   };
 
-  const generateAudio = async () => {
+  const handleGenerateVoice = async () => {
     if (!subscription) return;
 
     const charCount = text.length;
@@ -97,7 +97,7 @@ export default function Home() {
     }
     setIsLoading(true);
     try {
-      const response = await fetch('/api/generate-audio', {
+      const response = await fetch('/api/generate-voice', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,13 +109,13 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to generate audio.');
+        throw new Error('Failed to generate voice.');
       }
 
       const data = await response.json();
       // Add a timestamp to the URL to force the file to reload
-      const audioUrlWithTimestamp = `${data.audioUrl}?timestamp=${Date.now()}`;
-      setAudioUrl(audioUrlWithTimestamp);
+      const voiceUrlWithTimestamp = `${data.voiceUrl}?timestamp=${Date.now()}`;
+      setVoiceUrl(voiceUrlWithTimestamp);
 
       // Fetch updated subscription data to refresh character count
       await fetchSubscription();
@@ -123,8 +123,8 @@ export default function Home() {
       // Show success notification
       setShowGeneratedSnackbar(true);
     } catch (error) {
-      console.error('Error generating audio:', error);
-      alert('There was an error generating the audio.');
+      console.error('Error generating voice:', error);
+      alert('There was an error generating the voice.');
     } finally {
       setIsLoading(false);
     }
@@ -156,7 +156,7 @@ export default function Home() {
   return (
     <FormContainer>
       <Title variant="h4" gutterBottom>
-        Text to Audio Generator
+        Voice Generator
       </Title>
       <Divider sx={{ marginBottom: '20px' }} />
       <FormControlStyled fullWidth>
@@ -187,11 +187,11 @@ export default function Home() {
         <StyledButton
           variant="contained"
           color="primary"
-          onClick={generateAudio}
+          onClick={handleGenerateVoice}
           disabled={isGenerateButtonDisabled}
           fullWidth
         >
-          {isLoading ? 'Generating...' : 'Generate audio'}
+          {isLoading ? 'Generating...' : 'Generate voice'}
         </StyledButton>
         <StyledButton
           variant="outlined"
@@ -207,35 +207,35 @@ export default function Home() {
         Characters used: {text.length} / {availableChars} available
       </SubTitle>
       {isLoading && <ProgressBar />}
-      {audioUrl && (
-        <AudioSection>
-          <AudioTitle>Audio preview</AudioTitle>
-          <audio key={audioUrl} controls style={{ width: '100%' }}>
-            <source src={audioUrl} type="audio/mp3" />
+      {voiceUrl && (
+        <VoiceSection>
+          <VoiceTitle>Voice preview</VoiceTitle>
+          <audio key={voiceUrl} controls style={{ width: '100%' }}>
+            <source src={voiceUrl} type="audio/mp3" />
             Your browser does not support the audio element.
           </audio>
           <ButtonRow style={{ marginTop: '15px' }}>
-            <AudioButton
-              href={audioUrl}
-              download="audio.mp3"
+            <VoiceButton
+              href={voiceUrl}
+              download="voice.mp3"
               onClick={() => setShowDownloadSnackbar(true)}
             >
               <StyledButton variant="contained" color="success" fullWidth>
-                Download audio
+                Download voice
               </StyledButton>
-            </AudioButton>
+            </VoiceButton>
             <Box sx={{ flex: 1, display: 'flex' }}>
               <StyledButton
                 variant="outlined"
                 color="error"
-                onClick={() => setAudioUrl(null)}
+                onClick={() => setVoiceUrl(null)}
                 fullWidth
               >
-                Clear audio
+                Clear voice
               </StyledButton>
             </Box>
           </ButtonRow>
-        </AudioSection>
+        </VoiceSection>
       )}
       <Snackbar
         open={showDownloadSnackbar}
@@ -244,7 +244,7 @@ export default function Home() {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
         <Alert onClose={() => setShowDownloadSnackbar(false)} severity="success" sx={{ width: '100%' }}>
-          Audio download started!
+          Voice download started!
         </Alert>
       </Snackbar>
       <Snackbar
@@ -254,7 +254,7 @@ export default function Home() {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
         <Alert onClose={() => setShowGeneratedSnackbar(false)} severity="success" sx={{ width: '100%' }}>
-          Audio generated successfully!
+          Voice generated successfully!
         </Alert>
       </Snackbar>
     </FormContainer>

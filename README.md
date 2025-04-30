@@ -1,16 +1,16 @@
-# Text-to-Audio Generator
+# Voice Generator
 
 ## Overview
 
-This is a simple single-page application built with Next.js that utilizes the ElevenLabs API to convert text into audio. The app allows users to select a voice from a dropdown menu, enter text in a text area, and generate audio. Users can listen to the generated audio or download it directly.
+This is a simple single-page application built with Next.js that utilizes the ElevenLabs API to convert text into voice. The app allows users to select a voice from a dropdown menu, enter text in a text area, and generate voice. Users can listen to the generated voice or download it directly.
 
 ## Features
 
 - **Voice Selection**: Choose from various voices available via the ElevenLabs API.
 - **Text Input**: Enter the text you want to convert to speech.
 - **Character Count**: Displays the number of characters available for conversion based on your usage quota.
-- **Audio Generation**: Generate audio from the provided text.
-- **Playback and Download**: Play the generated audio or download it as an MP3 file.
+- **Voice Generation**: Generate voice from the provided text.
+- **Playback and Download**: Play the generated voice or download it as an MP3 file.
 
 ## Environment Variables
 
@@ -18,7 +18,7 @@ To use the ElevenLabs API, you need to set up the following environment variable
 
 - `ELEVENLABS_API_BASE_URL`: The base URL for the ElevenLabs API. Default is `https://api.elevenlabs.io/v1`. Change this if ElevenLabs updates the endpoint.
 - `ELEVENLABS_API_KEY`: Your ElevenLabs API key. Replace `<YOUR API KEY>` with your actual API key.
-- `ELEVENLABS_API_MODEL_ID`: The ID of the model you want to use for generating audio.
+- `ELEVENLABS_API_MODEL_ID`: The ID of the model you want to use for generating voice.
 
 Example `.env` file:
 
