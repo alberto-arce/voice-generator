@@ -24,7 +24,7 @@ import {
   ButtonRow,
   VoiceSection,
   VoiceTitle,
-  VoiceButton
+  VoiceButton,
 } from './page.styles';
 import { IVoice, ISubscription } from './definitions';
 
@@ -147,11 +147,9 @@ export default function Home() {
     );
   }
 
-  const availableChars =
-    subscription.character_limit - subscription.character_count;
+  const availableChars = subscription.character_limit - subscription.character_count;
 
-  const isGenerateButtonDisabled =
-    !selectedVoice || text.length === 0 || text.length > availableChars;
+  const isGenerateButtonDisabled = !selectedVoice || text.length === 0 || text.length > availableChars;
 
   return (
     <FormContainer>
@@ -161,12 +159,7 @@ export default function Home() {
       <Divider sx={{ marginBottom: '20px' }} />
       <FormControlStyled fullWidth>
         <InputLabel id="voice-select-label">Select Voice</InputLabel>
-        <Select
-          labelId="voice-select-label"
-          value={selectedVoice}
-          onChange={handleVoiceChange}
-          label="Select Voice"
-        >
+        <Select labelId="voice-select-label" value={selectedVoice} onChange={handleVoiceChange} label="Select Voice">
           {voices.map((voice) => (
             <MenuItem key={voice.voice_id} value={voice.voice_id}>
               {voice.name}
@@ -193,15 +186,9 @@ export default function Home() {
         >
           {isLoading ? 'Generating...' : 'Generate voice'}
         </StyledButton>
-        <StyledButton
-          variant="outlined"
-          color="secondary"
-          onClick={() => setText('')}
-          fullWidth
-        >
+        <StyledButton variant="outlined" color="secondary" onClick={() => setText('')} fullWidth>
           Clear text
         </StyledButton>
-
       </ButtonRow>
       <SubTitle variant="body2" color="textSecondary">
         Characters used: {text.length} / {availableChars} available
@@ -215,22 +202,13 @@ export default function Home() {
             Your browser does not support the audio element.
           </audio>
           <ButtonRow style={{ marginTop: '15px' }}>
-            <VoiceButton
-              href={voiceUrl}
-              download="voice.mp3"
-              onClick={() => setShowDownloadSnackbar(true)}
-            >
+            <VoiceButton href={voiceUrl} download="voice.mp3" onClick={() => setShowDownloadSnackbar(true)}>
               <StyledButton variant="contained" color="success" fullWidth>
                 Download voice
               </StyledButton>
             </VoiceButton>
             <Box sx={{ flex: 1, display: 'flex' }}>
-              <StyledButton
-                variant="outlined"
-                color="error"
-                onClick={() => setVoiceUrl(null)}
-                fullWidth
-              >
+              <StyledButton variant="outlined" color="error" onClick={() => setVoiceUrl(null)} fullWidth>
                 Clear voice
               </StyledButton>
             </Box>

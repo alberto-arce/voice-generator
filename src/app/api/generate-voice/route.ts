@@ -1,41 +1,28 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import {
-  ELEVENLABS_API_KEY,
-  ELEVENLABS_API_BASE_URL,
-  ELEVENLABS_API_MODEL_ID,
-} from '@config/env';
+import { ELEVENLABS_API_KEY, ELEVENLABS_API_BASE_URL, ELEVENLABS_API_MODEL_ID } from '@config/env';
 
 export async function POST(request: Request) {
   try {
     const { text, voiceId } = await request.json();
     if (!text || !voiceId) {
-      return NextResponse.json(
-        { error: 'Text and voiceId are required.' },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: 'Text and voiceId are required.' }, { status: 400 });
     }
 
-    const response = await fetch(
-      `${ELEVENLABS_API_BASE_URL}/text-to-speech/${voiceId}`,
-      {
-        method: 'POST',
-        headers: {
-          'xi-api-key': ELEVENLABS_API_KEY!,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model_id: ELEVENLABS_API_MODEL_ID,
-          text,
-        }),
+    const response = await fetch(`${ELEVENLABS_API_BASE_URL}/text-to-speech/${voiceId}`, {
+      method: 'POST',
+      headers: {
+        'xi-api-key': ELEVENLABS_API_KEY!,
+        'Content-Type': 'application/json',
       },
-    );
+      body: JSON.stringify({
+        model_id: ELEVENLABS_API_MODEL_ID,
+        text,
+      }),
+    });
     if (!response.ok) {
-      return NextResponse.json(
-        { error: 'Failed to generate voice' },
-        { status: 500 },
-      );
+      return NextResponse.json({ error: 'Failed to generate voice' }, { status: 500 });
     }
 
     const voiceArrayBuffer = await response.arrayBuffer();
@@ -51,9 +38,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ voiceUrl });
   } catch (error) {
     console.error('Error generating voice:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

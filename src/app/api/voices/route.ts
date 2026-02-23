@@ -9,18 +9,12 @@ export async function GET() {
       },
     });
     if (!response.ok) {
-      return NextResponse.json(
-        { error: 'Failed to fetch voices' },
-        { status: 500 },
-      );
+      return NextResponse.json({ error: 'Failed to fetch voices' }, { status: 500 });
     }
     const data = await response.json();
     return NextResponse.json({ voices: data.voices });
   } catch (error) {
     console.error('Error fetching voices:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

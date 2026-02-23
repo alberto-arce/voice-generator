@@ -1,13 +1,5 @@
 import { styled } from '@mui/system';
-import {
-  Container,
-  Typography,
-  Button,
-  LinearProgress,
-  FormControl,
-  TextField,
-  Box,
-} from '@mui/material';
+import { Container, Typography, Button, LinearProgress, FormControl, TextField, Box } from '@mui/material';
 
 export const FormContainer = styled(Container)({
   backgroundColor: '#f7f7f7',

@@ -17,7 +17,6 @@ if (!parsedEnv.success) {
   throw new Error('Invalid environment variables');
 }
 
-const { ELEVENLABS_API_KEY, ELEVENLABS_API_BASE_URL, ELEVENLABS_API_MODEL_ID } =
-  parsedEnv.data;
+const { ELEVENLABS_API_KEY, ELEVENLABS_API_BASE_URL, ELEVENLABS_API_MODEL_ID } = parsedEnv.data;
 
 export { ELEVENLABS_API_KEY, ELEVENLABS_API_BASE_URL, ELEVENLABS_API_MODEL_ID };
